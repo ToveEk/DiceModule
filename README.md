@@ -24,10 +24,11 @@ Created for the 1DV610 Software Quality course at Linneaus University.
 
 ## Installation
 Clone the repository and install dependencies:
-
+```bash
 git clone https://github.com/ToveEk/1DV610-L2.git
 cd 1DV610-L2
 npm install
+```
 
 ## Usage Example
 import { Dice } from './src/dice.js'
