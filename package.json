@@ -1,8 +1,8 @@
 {
-  "name": "1dv610-l2",
+  "name": "dice-module",
   "version": "1.0.0",
   "type": "module",
-  "description": "L2. En Modul",
+  "description": "A module for simulating dice rolls.",
   "main": "testApp.js",
   "scripts": {
     "start": "node ./test/testApp.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ToveEk/1DV610-L2.git"
+    "url": "git+https://github.com/ToveEk/DiceModule.git"
   },
   "author": "Tove Ek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ToveEk/1DV610-L2/issues"
+    "url": "https://github.com/ToveEk/DiceModule/issues"
   },
-  "homepage": "https://github.com/ToveEk/1DV610-L2#readme",
+  "homepage": "https://github.com/ToveEk/DiceModule#readme",
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
     "eslint": "^8.45.0"
