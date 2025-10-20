@@ -25,17 +25,16 @@ Created for the 1DV610 Software Quality course at Linneaus University.
 ## Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/ToveEk/1DV610-L2.git
-cd 1DV610-L2
-npm install
+npm install ToveEk/DiceModule
 ```
 
 ## Usage Example
-import { Dice } from './src/dice.js'
+```bash
+import DiceModule from 'DiceModule';
 
 const diceRoller = new Dice()
 
-```bash
+
 console.log(diceRoller.startRolling('2d6+1')) // Roll two six-sided dice with +1 modifier
 console.log(diceRoller.startRolling('2d20 with advantage')) // Roll two d20 with advantage
 console.log(diceRoller.startRolling('3d8-2')) // Roll three eight-sided dice with -2 modifier
@@ -59,16 +58,14 @@ To run the program:
 npm start
 ```
 
+[Read test report (Swedish)](https://github.com/ToveEk/DiceModule/blob/main/testrapport.md)
+
 ## Bug Reports and Known Issues
 - The message for "natural 20" and "natural 1" is not displayed correctly.
 - Misspelled input (e.g. “advntage”) is not handled with an error message.
 - Rolling with advantage is currently allowed for all dice types, even though it should be restricted.
 
 New issues can be reported via the [GitHub Issues page](https://github.com/ToveEk/1DV610-L2/issues).
-
-## Intended Use
-Users should only interact with the **Dice** class through the `startRolling()` method.
-Other files such as `parser.js` and `rules.js` handle internal logic and should not be modified.
 
 ## Contributing
 To contribute:
