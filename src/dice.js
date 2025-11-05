@@ -111,12 +111,6 @@ export class Dice {
   applyRules (roll, parsedDice) {
     const rules = new Rules()
 
-    if (parsedDice.sides === 20 && roll === 20) {
-      rules.naturalTwenty()
-    } else if (parsedDice.sides === 20 && roll === 1) {
-      rules.naturalOne()
-    }
-
     if (parsedDice.disadvantage === true) {
       const resultMessage = rules.rollWithDisadvantage(parsedDice)
       return resultMessage
@@ -125,6 +119,22 @@ export class Dice {
       return resultMessage
     } else {
       return this.showResult(roll, parsedDice)
+    }
+  }
+
+  /**
+   * Checks the roll for natural 20 or natural 1 conditions.
+   *
+   * @param {number} roll - The result of the dice roll.
+   * @param {object} parsedDice - The parsed dice information.
+   */
+  checkNaturalTwentyOrNaturalOne (roll, parsedDice) {
+    const rules = new Rules()
+
+    if (parsedDice.sides === 20 && roll === 20) {
+      rules.naturalTwenty()
+    } else if (parsedDice.sides === 20 && roll === 1) {
+      rules.naturalOne()
     }
   }
 
