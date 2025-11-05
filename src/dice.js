@@ -24,25 +24,25 @@ export class Dice {
    * Rolls dice based on the provided dice notation string and returns the result message.
    *
    * @param {string} diceNotation - The dice notation string (e.g., "2d6").
-   * @returns {string} - The result message or error message.
+   * @returns {string} - The result message of the dice roll.
    */
   startRolling (diceNotation) {
     try {
       if (!diceNotation || typeof diceNotation !== 'string') {
-        return 'Error: Dice notation must be a non-empty string. Examples: "d6", "2d8+1"'
+        throw new Error('Error: Dice notation must be a non-empty string. Examples: "d6", "2d8+1"')
       }
       if (diceNotation.trim() === '') {
-        return 'Error: Dice notation cannot be empty. Examples: "d6", "2d8+1"'
+        throw new Error('Error: Dice notation cannot be empty. Examples: "d6", "2d8+1"')
       }
       const parsedDice = this.parser.parseDice(diceNotation)
 
       if (this.diceArray.includes(parsedDice.sides) && parsedDice.advantage === false && parsedDice.disadvantage === false) {
         this.singleOrMultiple(parsedDice)
       } else if (this.diceArray.includes(parsedDice.sides) && (parsedDice.advantage === true || parsedDice.disadvantage === true)) {
-        const resultOfRollingWithRules = this.applyRules(this.roll, parsedDice)
+        const resultOfRollingWithRules = this.applyDisadvantageOrAdvantage(this.roll, parsedDice)
         return resultOfRollingWithRules
       } else {
-        return 'Invalid die type. Please use d4, d6, d8, d10, d12, d20, or d100.'
+        throw new Error('Invalid die type. Please use d4, d6, d8, d10, d12, d20, or d100.')
       }
 
       if (diceNotation.includes('+') || diceNotation.includes('-')) {
@@ -52,7 +52,7 @@ export class Dice {
       const result = this.showResult(this.roll, parsedDice)
       return result
     } catch (error) {
-      return 'An error occurred while rolling the dice.'
+      throw new Error('An error occurred while rolling the dice.')
     }
   }
 
@@ -102,13 +102,13 @@ export class Dice {
   }
 
   /**
-   * Applies game rules to the dice roll.
+   * Applies advantage or disadvantage rules to the roll.
    *
    * @param {number} roll - The result of the dice roll.
    * @param {object} parsedDice - The parsed dice information.
    * @returns {string} - The result message after applying rules.
    */
-  applyRules (roll, parsedDice) {
+  applyDisadvantageOrAdvantage (roll, parsedDice) {
     const rules = new Rules()
 
     if (parsedDice.disadvantage === true) {
@@ -164,7 +164,7 @@ export class Dice {
       }
       this.history.getPreviousRolls(numberOfRolls)
     } catch (error) {
-      console.log('An error occurred while retrieving roll history.')
+      throw new Error('An error occurred while retrieving the roll history.')
     }
   }
 }
