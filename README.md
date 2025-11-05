@@ -3,19 +3,6 @@ A modular JavaScript library for simulating dice rolls, parsing dice notation, a
 
 Created for the 1DV610 Software Quality course at Linneaus University.
 
-## Table of Contents
-- Features
-- Installation
-- Usage Example
-- Dependencies, Language and Version
-- Testing
-- Bug Reports and Known Issues
-- Intended Use
-- Contributing
-- License
-- Versioning and Release
-- Author
-
 ## Features
 - Roll a single or multiple dice (d4, d6, d8, d10, d12, d20, d100)
 - Parse dice notation strings (e.g. 2d6+1)
