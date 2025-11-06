@@ -18,11 +18,11 @@ export class History {
    * Retrieves the previous rolls up to the specified number.
    *
    * @param {number} numberOfRolls - The number of previous rolls to retrieve.
-   * @returns {string} - A string listing the previous rolls.
+   * @returns {Array} - An array of previous rolls.
    */
   getPreviousRolls (numberOfRolls) {
     if (this.previousRolls.length === 0) {
-      return 'No roll history available. Make some dice rolls first!'
+      console.log('No roll history available. Make some dice rolls first!')
     }
 
     if (this.previousRolls.length < numberOfRolls) {
