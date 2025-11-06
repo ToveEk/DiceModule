@@ -18,11 +18,11 @@ npm install
 ```
 
 ## Usage Example
+```bash
 import { Dice } from './src/dice.js'
 
 const diceRoller = new Dice()
 
-```bash
 console.log(diceRoller.startRolling('2d6+1')) // Roll two six-sided dice with +1 modifier
 console.log(diceRoller.startRolling('2d20 with advantage')) // Roll two d20 with advantage
 console.log(diceRoller.startRolling('3d8-2')) // Roll three eight-sided dice with -2 modifier
@@ -46,6 +46,8 @@ To run the program:
 npm start
 ```
 
+[Test report in Swedish](https://github.com/ToveEk/DiceModule/blob/main/testrapport.md)
+
 ## Bug Reports and Known Issues
 - The message for "natural 20" and "natural 1" is not displayed correctly.
 - Misspelled input (e.g. “advntage”) is not handled with an error message.
@@ -53,16 +55,13 @@ npm start
 
 New issues can be reported via the [GitHub Issues page](https://github.com/ToveEk/1DV610-L2/issues).
 
-## Intended Use
-Users should only interact with the **Dice** class through the `startRolling()` method.
-Other files such as `parser.js` and `rules.js` handle internal logic and should not be modified.
-
 ## Contributing
 To contribute:
 1. Fork the repository.
 2. Create a new branch for your feature or bugfix.
-3. Commit your changes.
-4. Open a pull request.
+3. Test your changes.
+4. Commit your changes.
+5. Open a pull request.
 
 Please follow the code style.
 
@@ -70,7 +69,7 @@ Please follow the code style.
 MIT
 
 ## Versioning and Release
-Current version: 1.0.0  
+Current version: 1.0.1  
 Initial release for 1DV610 Software Quality course.
 
 ## Author

@@ -1,18 +1,9 @@
-/**
- * Class representing a dice roller.
- *
- * @file dice.js
- * @description Simulates rolling various types of dice.
- * @author Tove Ek
- * @version 1.0.0
- */
-
 import { Parser } from './parser.js'
 import { Rules } from './rules.js'
 import { History } from './history.js'
 
 /**
- *
+ * Class representing a dice roller.
  */
 export class Dice {
   diceArray = [4, 6, 8, 10, 12, 20, 100]
