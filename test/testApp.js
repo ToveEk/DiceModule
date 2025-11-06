@@ -12,10 +12,10 @@ import { Dice } from '../src/dice.js'
 const diceRoller = new Dice()
 
 // ---------------
-// Basic rolls
+// Rolls with modifiers
 // ---------------
 
-console.log('==== Basic Rolls ====')
+console.log('==== Rolls with Modifiers ====')
 console.log(diceRoller.startRolling('2d6+1')) // Roll two six-sided dice with plus 1 modifier
 
 console.log(diceRoller.startRolling('d4+5')) // Roll a single four-sided die with plus 5 modifier
@@ -51,11 +51,11 @@ console.log(diceRoller.startRolling('d20')) // Roll a single twenty-sided die (m
 // -----------------
 
 console.log('\n==== Invalid Rolls ====')
-// console.log(diceRoller.startRolling('d5')) // Invalid die type
-// console.log(diceRoller.startRolling('6')) // Invalid notation
-// console.log(diceRoller.startRolling()) // Invalid notation
-// console.log(diceRoller.startRolling('2d20 with advntage')) // Misspelled advantage
-// console.log(diceRoller.startRolling('2d4 with advantage')) // Advantage not allowed with d4
+console.log(diceRoller.startRolling('d5')) // Invalid die type
+console.log(diceRoller.startRolling('6')) // Invalid notation
+console.log(diceRoller.startRolling()) // Invalid notation
+console.log(diceRoller.startRolling('2d20 with advntage')) // Misspelled advantage
+console.log(diceRoller.startRolling('2d4 with advantage')) // Advantage not allowed with d4
 
 // -----------------
 // Show history
