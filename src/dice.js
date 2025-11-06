@@ -28,31 +28,65 @@ export class Dice {
    */
   startRolling (diceNotation) {
     try {
-      if (!diceNotation || typeof diceNotation !== 'string') {
-        throw new Error('Error: Dice notation must be a non-empty string. Examples: "d6", "2d8+1"')
-      }
-      if (diceNotation.trim() === '') {
-        throw new Error('Error: Dice notation cannot be empty. Examples: "d6", "2d8+1"')
-      }
-      const parsedDice = this.parser.parseDice(diceNotation)
+      const parsedDice = this.#checkDiceNotationAndParse(diceNotation)
 
-      if (this.diceArray.includes(parsedDice.sides) && parsedDice.advantage === false && parsedDice.disadvantage === false) {
-        this.singleOrMultiple(parsedDice)
-      } else if (this.diceArray.includes(parsedDice.sides) && (parsedDice.advantage === true || parsedDice.disadvantage === true)) {
-        const resultOfRollingWithRules = this.applyDisadvantageOrAdvantage(this.roll, parsedDice)
-        return resultOfRollingWithRules
-      } else {
-        throw new Error('Invalid die type. Please use d4, d6, d8, d10, d12, d20, or d100.')
-      }
+      this.#checkIfDiceArrayIncludesSides(parsedDice)
 
-      if (diceNotation.includes('+') || diceNotation.includes('-')) {
-        this.addModifier(this.roll, parsedDice)
-      }
+      this.#checkForModifierAndApply(diceNotation, parsedDice)
 
-      const result = this.showResult(this.roll, parsedDice)
+      this.#checkNaturalTwentyOrNaturalOne(this.roll, parsedDice)
+
+      const result = this.#showResult(this.roll, parsedDice)
       return result
     } catch (error) {
       throw new Error('An error occurred while rolling the dice.')
+    }
+  }
+
+  /**
+   * Checks the dice notation and parses it.
+   *
+   * @param {string} diceNotation - The dice notation string to parse.
+   * @returns {object} - The parsed dice information.
+   */
+  #checkDiceNotationAndParse (diceNotation) {
+    if (!diceNotation || typeof diceNotation !== 'string') {
+      throw new Error('Dice notation must be a non-empty string. Examples: "d6", "2d8+1"')
+    }
+
+    if (diceNotation.trim() === '') {
+      throw new Error('Dice notation cannot be empty. Examples: "d6", "2d8+1"')
+    }
+
+    const parsedDice = this.parser.parseDice(diceNotation)
+    return parsedDice
+  }
+
+  /**
+   * Checks if the parsed dice sides are valid and applies the appropriate rolling method.
+   *
+   * @param {object} parsedDice - The parsed dice information.
+   * @returns {void}
+   */
+  #checkIfDiceArrayIncludesSides (parsedDice) {
+    if (this.diceArray.includes(parsedDice.sides) && parsedDice.advantage === false && parsedDice.disadvantage === false) {
+      this.#singleOrMultiple(parsedDice)
+    } else if (this.diceArray.includes(parsedDice.sides) && (parsedDice.advantage === true || parsedDice.disadvantage === true)) {
+      this.#applyDisadvantageOrAdvantage(this.roll, parsedDice)
+    } else {
+      console.log('Invalid die type. Please use d4, d6, d8, d10, d12, d20, or d100.')
+    }
+  }
+
+  /**
+   * Checks for modifiers in the dice notation and applies them to the roll.
+   *
+   * @param {string} diceNotation - The dice notation string.
+   * @param {object} parsedDice - The parsed dice information.
+   */
+  #checkForModifierAndApply (diceNotation, parsedDice) {
+    if (diceNotation.includes('+') || diceNotation.includes('-')) {
+      this.#addModifier(this.roll, parsedDice)
     }
   }
 
@@ -61,11 +95,11 @@ export class Dice {
    *
    * @param {object} parsedDice - The parsed dice information.
    */
-  singleOrMultiple (parsedDice) {
+  #singleOrMultiple (parsedDice) {
     if (parsedDice.numberOfDice > 1) {
-      this.rollMultipleDice(parsedDice)
+      this.#rollMultipleDice(parsedDice)
     } else {
-      this.rollSingleDie(parsedDice)
+      this.#rollSingleDie(parsedDice)
     }
   }
 
@@ -74,7 +108,7 @@ export class Dice {
    *
    * @param {object} parsedDice - The parsed dice information.
    */
-  rollSingleDie (parsedDice) {
+  #rollSingleDie (parsedDice) {
     this.roll = Math.floor(Math.random() * parsedDice.sides) + 1
   }
 
@@ -83,7 +117,7 @@ export class Dice {
    *
    * @param {object} parsedDice - The parsed dice information.
    */
-  rollMultipleDice (parsedDice) {
+  #rollMultipleDice (parsedDice) {
     for (let i = 0; i < parsedDice.numberOfDice; i++) {
       this.roll += Math.floor(Math.random() * parsedDice.sides) + 1
     }
@@ -96,7 +130,7 @@ export class Dice {
    * @param {object} parsedDice - The parsed dice information.
    * @returns {number} - The roll value after adding the modifier.
    */
-  addModifier (roll, parsedDice) {
+  #addModifier (roll, parsedDice) {
     roll += parsedDice.modifier
     return roll
   }
@@ -108,7 +142,7 @@ export class Dice {
    * @param {object} parsedDice - The parsed dice information.
    * @returns {string} - The result message after applying rules.
    */
-  applyDisadvantageOrAdvantage (roll, parsedDice) {
+  #applyDisadvantageOrAdvantage (roll, parsedDice) {
     const rules = new Rules()
 
     if (parsedDice.disadvantage === true) {
@@ -118,7 +152,7 @@ export class Dice {
       const resultMessage = rules.rollWithAdvantage(parsedDice)
       return resultMessage
     } else {
-      return this.showResult(roll, parsedDice)
+      return this.#showResult(roll, parsedDice)
     }
   }
 
@@ -128,7 +162,7 @@ export class Dice {
    * @param {number} roll - The result of the dice roll.
    * @param {object} parsedDice - The parsed dice information.
    */
-  checkNaturalTwentyOrNaturalOne (roll, parsedDice) {
+  #checkNaturalTwentyOrNaturalOne (roll, parsedDice) {
     const rules = new Rules()
 
     if (parsedDice.sides === 20 && roll === 20) {
@@ -145,7 +179,7 @@ export class Dice {
    * @param {object} parsedDice - The parsed dice information.
    * @returns {string} - The result message.
    */
-  showResult (roll, parsedDice) {
+  #showResult (roll, parsedDice) {
     this.history.addRollToHistory(roll)
     const result = `You rolled a ${roll} with ${parsedDice.numberOfDice} d${parsedDice.sides}`
     return result
