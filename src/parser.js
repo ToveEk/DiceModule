@@ -9,11 +9,11 @@ export class Parser {
    * @returns {object} - An object containing the number of sides, number of dice, and modifier.
    */
   parseDice (diceNotation) {
-    const sides = this.removeDNotation(diceNotation)
-    const numberOfDice = this.checkNumberOfDice(diceNotation)
-    const modifier = this.parseModifier(diceNotation)
-    const disadvantage = this.checkIfDisadvantage(diceNotation)
-    const advantage = this.checkIfAdvantage(diceNotation)
+    const sides = this.#removeDNotation(diceNotation)
+    const numberOfDice = this.#checkNumberOfDice(diceNotation)
+    const modifier = this.#parseModifier(diceNotation)
+    const disadvantage = this.#checkIfDisadvantage(diceNotation)
+    const advantage = this.#checkIfAdvantage(diceNotation)
 
     console.log(`Rolling ${numberOfDice} d${sides} with modifier: ${modifier || 0}`)
 
@@ -34,7 +34,7 @@ export class Parser {
    * @param {string} diceNotation - The dice notation string to parse.
    * @returns {number} - The number of sides on the die.
    */
-  removeDNotation (diceNotation) {
+  #removeDNotation (diceNotation) {
     if (diceNotation.includes('d')) {
       const sides = parseInt(diceNotation.split('d')[1])
 
@@ -50,7 +50,7 @@ export class Parser {
    * @param {string} diceNotation - The dice notation string to parse.
    * @returns {number} - The number of dice to roll.
    */
-  checkNumberOfDice (diceNotation) {
+  #checkNumberOfDice (diceNotation) {
     const numberofDice = parseInt(diceNotation.split('d')[0])
 
     if (!isNaN(numberofDice)) {
@@ -66,7 +66,7 @@ export class Parser {
    * @param {string} diceNotation - The dice notation string to parse.
    * @returns {number} - The modifier value.
    */
-  parseModifier (diceNotation) {
+  #parseModifier (diceNotation) {
     if (diceNotation.includes('+')) {
       const modifierValue = parseInt(diceNotation.split('+')[1])
 
@@ -86,7 +86,7 @@ export class Parser {
    * @param {string} diceNotation - The dice notation string to check.
    * @returns {boolean} - True if disadvantage is included, false otherwise.
    */
-  checkIfDisadvantage (diceNotation) {
+  #checkIfDisadvantage (diceNotation) {
     if (diceNotation.includes('disadvantage')) {
       return true
     } else {
@@ -100,7 +100,7 @@ export class Parser {
    * @param {string} diceNotation - The dice notation string to check.
    * @returns {boolean} - True if advantage or disadvantage is included, false otherwise.
    */
-  checkIfAdvantage (diceNotation) {
+  #checkIfAdvantage (diceNotation) {
     if (diceNotation.includes('advantage')) {
       return true
     } else {
